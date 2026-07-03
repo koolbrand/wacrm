@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Funnel_Display, JetBrains_Mono, Lato } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { ThemeProvider } from "@/hooks/use-theme";
@@ -13,17 +13,32 @@ import {
   THEME_IDS,
 } from "@/lib/themes";
 
-const inter = Inter({
+// Koolgrowth brand typography (brandbook 2026-05): Funnel Display for
+// display/headings, Lato for body, JetBrains Mono for labels/data.
+const lato = Lato({
+  weight: ["400", "700", "900"],
   variable: "--font-sans",
+  subsets: ["latin"],
+});
+
+const funnelDisplay = Funnel_Display({
+  weight: ["400", "700", "800"],
+  variable: "--font-funnel",
+  subsets: ["latin"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  weight: ["400", "500"],
+  variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "wacrm",
-    template: "%s — wacrm",
+    default: "Koolwaa CRM",
+    template: "%s — Koolwaa CRM",
   },
-  description: "Self-hostable CRM template for WhatsApp.",
+  description: "Koolwaa CRM — WhatsApp CRM by Koolgrowth.",
   robots: {
     index: false,
     follow: false,
@@ -85,7 +100,7 @@ export default function RootLayout({
       lang="en"
       data-theme={DEFAULT_THEME}
       data-mode={DEFAULT_MODE}
-      className={`${inter.variable} h-full antialiased`}
+      className={`${lato.variable} ${funnelDisplay.variable} ${jetbrainsMono.variable} h-full antialiased`}
       // The `theme-boot` script below rewrites `data-theme` and
       // `data-mode` on <html> from localStorage before React hydrates,
       // so for any non-default choice the client DOM intentionally
