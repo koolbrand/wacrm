@@ -77,6 +77,9 @@ function LoginPageInner() {
               <MessageSquare className="h-6 w-6 text-primary" />
             )}
           </div>
+          <span className="font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-primary">
+            Koolwaa CRM
+          </span>
           <CardTitle className="text-xl text-foreground">
             {inviteToken ? "Sign in to accept" : "Welcome back"}
           </CardTitle>
