@@ -14,7 +14,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { MessageSquare, CheckCircle, UsersRound } from "lucide-react";
+import { MessageSquare, CheckCircle, UsersRound, Lock } from "lucide-react";
 
 // `useSearchParams` opts the component out of static prerendering
 // unless wrapped in Suspense — same pattern as /login.
@@ -88,6 +88,43 @@ function SignupPageInner() {
     setSuccess(true);
     setLoading(false);
   };
+
+  // Public self-serve registration is disabled: this is a private,
+  // invitation-only deployment (Koolbrand-operated, multi-tenant). A
+  // request without an invite token is someone trying to create a
+  // brand-new account, which we don't allow — send them a notice.
+  // Team members invited via /join/<token> reach this page WITH a
+  // token and can still complete their signup.
+  if (!inviteToken) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-background px-4">
+        <Card className="w-full max-w-md border-border bg-card">
+          <CardHeader className="items-center text-center">
+            <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
+              <Lock className="h-6 w-6 text-primary" />
+            </div>
+            <CardTitle className="text-xl text-foreground">
+              Invitation only
+            </CardTitle>
+            <CardDescription className="text-muted-foreground">
+              This platform is private. Ask your administrator to create an
+              account for you or send you a team invitation.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Link href="/login">
+              <Button
+                variant="outline"
+                className="w-full border-border text-muted-foreground hover:bg-muted hover:text-foreground"
+              >
+                Back to sign in
+              </Button>
+            </Link>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   if (success) {
     return (
